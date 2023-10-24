@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -30,9 +31,35 @@ const Signup = () => {
 
   const goToLogin = () => {};
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission here with formData
+    try {
+      const res = await axios.post(
+        "http://localhost:5500/auth/signup",
+        formData
+      );
+      alert("User Created");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        dob: "",
+        gender: "",
+        email: "",
+        password: "",
+        recoveryEmail: "",
+      });
+    } catch (err) {
+      alert(err.message);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        dob: "",
+        gender: "",
+        email: "",
+        password: "",
+        recoveryEmail: "",
+      });
+    }
   };
 
   return (

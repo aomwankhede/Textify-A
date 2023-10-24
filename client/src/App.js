@@ -5,7 +5,9 @@ import Signup from "./auth/Signup";
 function App() {
   return (
     <div>
-      <h1>To Be implemented</h1>
+      {/* <h1>To Be implemented</h1> */}
+      <Login/>
+      {/* <Signup/> */}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
 
@@ -26,9 +27,26 @@ const Login = () => {
 
   const goToSignup = () => {};
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // You can handle form submission here with formData
+    try {
+      const res = await axios.post(
+        "http://localhost:5500/auth/login",
+        formData
+      );
+      alert("Stored in local storage!!");
+      setFormData({
+        email: "",
+        password: "",
+      })
+    } catch (err) {
+      alert(err.message);
+      setFormData({
+        email: "",
+        password: "",
+      })
+    }
   };
 
   return (
