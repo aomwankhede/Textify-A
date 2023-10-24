@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Signup = () => {
+  const [isValid,setIsValid] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -27,6 +28,11 @@ const Signup = () => {
       ...formData,
       [id]: value,
     });
+    const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const {firstName,lastName,email,recoveryEmail,password,dob,gender} = formData;
+    console.log(formData);
+    setIsValid(firstName != "" && lastName != "" && email != "" && password !="" && dob!="" && gender!="" && password.length>=5 && email_regex.test(email));
+    console.log(isValid);
   };
 
   const goToLogin = () => {};
@@ -161,7 +167,7 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" disabled = {!isValid} className="btn btn-primary">
           Submit
         </button>
         <br />
