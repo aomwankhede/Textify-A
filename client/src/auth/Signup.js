@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
-  const [isValid,setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -28,11 +29,6 @@ const Signup = () => {
       ...formData,
       [id]: value,
     });
-    const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const {firstName,lastName,email,recoveryEmail,password,dob,gender} = formData;
-    console.log(formData);
-    setIsValid(firstName != "" && lastName != "" && email != "" && password !="" && dob!="" && gender!="" && password.length>=5 && email_regex.test(email));
-    console.log(isValid);
   };
 
   const goToLogin = () => {};
@@ -69,8 +65,18 @@ const Signup = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", backgroundColor: "aliceblue" }}>
-      <h3 style={{ backgroundColor: "whitesmoke" }}>SignUp</h3>
+    <div
+      style={{
+        textAlign: "center",
+        backgroundColor: "aliceblue",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <h3 style={{ backgroundColor: "aliceblue" }}>
+        Welcome to the world of reading!!
+      </h3>
       <form
         style={{
           border: "1px solid grey",
@@ -83,6 +89,7 @@ const Signup = () => {
       >
         <div className="form-group">
           <input
+            required
             type="text"
             className="form-control mb-2"
             id="firstName"
@@ -95,6 +102,7 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
+            required
             type="text"
             className="form-control mb-2"
             id="lastName"
@@ -107,6 +115,7 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
+            required
             type="date"
             className="form-control mb-2"
             id="dob"
@@ -119,6 +128,7 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
+            required
             type="text"
             className="form-control mb-2"
             id="gender"
@@ -131,6 +141,7 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
+            required
             type="email"
             className="form-control mb-2"
             id="email"
@@ -143,6 +154,8 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
+            required
+            minLength={5}
             type="password"
             className="form-control mb-2"
             id="password"
@@ -155,6 +168,7 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
+            required
             type="email"
             className="form-control mb-2"
             id="recoveryEmail"
@@ -167,7 +181,7 @@ const Signup = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" disabled = {!isValid} className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
         <br />
@@ -175,10 +189,10 @@ const Signup = () => {
           <b>Already have account?</b>
         </small>
         <br />
-        <button className="btn btn-primary" onClick={goToLogin}>
-          Login
-        </button>
       </form>
+      <Link className="btn btn-primary" onClick={goToLogin} to='/login'>
+        Login
+      </Link>
     </div>
   );
 };

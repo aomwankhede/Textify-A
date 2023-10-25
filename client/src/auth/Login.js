@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [focusedInput, setFocusedInput] = useState(null);
@@ -39,20 +40,28 @@ const Login = () => {
       setFormData({
         email: "",
         password: "",
-      })
+      });
     } catch (err) {
       alert(err.message);
       setFormData({
         email: "",
         password: "",
-      })
+      });
     }
   };
 
   return (
-    <div>
-      <div style={{ textAlign: "center", backgroundColor: "aliceblue" }}>
-        <h3 style={{ backgroundColor: "whitesmoke" }}>Login</h3>
+    <div
+      style={{
+        textAlign: "center",
+        backgroundColor: "aliceblue",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <div>
+        <h3 style={{ backgroundColor: "aliceblue" }}>Login</h3>
         <form
           style={{
             border: "1px solid grey",
@@ -96,10 +105,10 @@ const Login = () => {
             <b>Create a new account</b>
           </small>
           <br />
-          <button className="btn btn-primary" onClick={goToSignup}>
-            Sign Up
-          </button>
         </form>
+        <Link className="btn btn-primary" onClick={goToSignup} to='/signup'>
+          Sign Up
+        </Link>
       </div>
       <p
         style={{
