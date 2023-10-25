@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Signup = () => {
-  const [isValid, setIsValid] = useState(false);
+const Signup = ({ isLoggedIn, setLogin }) => {
+  const navigate = useNavigate();
   const [focusedInput, setFocusedInput] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -31,16 +31,13 @@ const Signup = () => {
     });
   };
 
-  const goToLogin = () => {};
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5500/auth/signup",
-        formData
-      );
+      await axios.post("http://localhost:5500/auth/signup", formData);
       alert("User Created");
+      setLogin(true);
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -182,6 +179,7 @@ const Signup = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">
+          {isLoggedIn && navigate("/")}
           Submit
         </button>
         <br />
@@ -190,7 +188,7 @@ const Signup = () => {
         </small>
         <br />
       </form>
-      <Link className="btn btn-primary" onClick={goToLogin} to='/login'>
+      <Link className="btn btn-primary" to="/login">
         Login
       </Link>
     </div>

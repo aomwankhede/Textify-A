@@ -1,10 +1,11 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ isLoggedIn, setLogin }) => {
   const [focusedInput, setFocusedInput] = useState(null);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,11 +33,9 @@ const Login = () => {
     e.preventDefault();
     // You can handle form submission here with formData
     try {
-      const res = await axios.post(
-        "http://localhost:5500/auth/login",
-        formData
-      );
+      await axios.post("http://localhost:5500/auth/login", formData);
       alert("Stored in local storage!!");
+      setLogin(true);
       setFormData({
         email: "",
         password: "",
@@ -98,6 +97,7 @@ const Login = () => {
           </div>
 
           <button type="submit" className="btn btn-primary">
+            {isLoggedIn && navigate("/")}
             Submit
           </button>
           <br />
@@ -106,7 +106,7 @@ const Login = () => {
           </small>
           <br />
         </form>
-        <Link className="btn btn-primary" onClick={goToSignup} to='/signup'>
+        <Link className="btn btn-primary" onClick={goToSignup} to="/signup">
           Sign Up
         </Link>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setLogin }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -46,7 +46,19 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <Link className="btn btn-dark" to="/signup">Signin</Link>
+          {isLoggedIn ? (
+            <Link
+              className="btn btn-dark"
+              to="/"
+              onClick={() => setLogin(false)}
+            >
+              SignOut
+            </Link>
+          ) : (
+            <Link className="btn btn-dark" to="/signup">
+              Signin
+            </Link>
+          )}
         </div>
       </div>
     </nav>
