@@ -2,8 +2,12 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {useDispatch,useSelector} from 'react-redux';
+import { toggleFunc } from "../Redux/Action/authActCreator";
 
-const Login = ({ isLoggedIn, setLogin }) => {
+const Login = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state=>state.isLoggedIn);
   const [focusedInput, setFocusedInput] = useState(null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -27,7 +31,6 @@ const Login = ({ isLoggedIn, setLogin }) => {
     });
   };
 
-  const goToSignup = () => {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +38,8 @@ const Login = ({ isLoggedIn, setLogin }) => {
     try {
       await axios.post("http://localhost:5500/auth/login", formData);
       alert("Stored in local storage!!");
-      setLogin(true);
+      const actionObject = toggleFunc(true);
+      dispatch(actionObject);
       setFormData({
         email: "",
         password: "",
@@ -106,7 +110,7 @@ const Login = ({ isLoggedIn, setLogin }) => {
           </small>
           <br />
         </form>
-        <Link className="btn btn-primary" onClick={goToSignup} to="/signup">
+        <Link className="btn btn-primary" to="/signup">
           Sign Up
         </Link>
       </div>

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {useSelector,useDispatch} from 'react-redux';
 import axios from "axios";
+import { toggleFunc } from "../Redux/Action/authActCreator";
 
-const Signup = ({ isLoggedIn, setLogin }) => {
+const Signup = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state=>state.isLoggedIn)
   const navigate = useNavigate();
   const [focusedInput, setFocusedInput] = useState(null);
   const [formData, setFormData] = useState({
@@ -36,7 +40,8 @@ const Signup = ({ isLoggedIn, setLogin }) => {
     try {
       await axios.post("http://localhost:5500/auth/signup", formData);
       alert("User Created");
-      setLogin(true);
+      const actionObject = toggleFunc(true);
+      dispatch(actionObject);
 
       setFormData({
         firstName: "",

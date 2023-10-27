@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Navbar = ({ isLoggedIn, setLogin }) => {
+import {useSelector,useDispatch} from 'react-redux';
+import { toggleFunc } from "./Redux/Action/authActCreator";
+const Navbar = () => {
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const dispatch = useDispatch();
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -50,7 +54,13 @@ const Navbar = ({ isLoggedIn, setLogin }) => {
             <Link
               className="btn btn-dark"
               to="/"
-              onClick={() => setLogin(false)}
+              // onClick={() => setLogin(false)}
+              onClick = {
+                ()=>{
+                  const actionObject = toggleFunc(false);
+                  dispatch(actionObject)
+                }
+              }
             >
               SignOut
             </Link>

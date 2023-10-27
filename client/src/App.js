@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./auth/Login";
@@ -11,24 +11,20 @@ import Navbar from "./Navbar";
 import Settings from "./Settings";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const setLogin = (bool) => {
-    setIsLoggedIn(bool);
-  };
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} setLogin={setLogin} />
+      <Navbar/>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route
           exact
           path="/signup"
-          element={<Signup isLoggedIn={isLoggedIn} setLogin={setLogin} />}
+          element={<Signup/>}
         />
         <Route
           exact
           path="/login"
-          element={<Login isLoggedIn={isLoggedIn} setLogin={setLogin} />}
+          element={<Login/>}
         />
         <Route exact path="/library" element={<Library />} />
         <Route exact path="/shorts" element={<Shorts />} />
